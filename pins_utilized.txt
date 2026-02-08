@@ -1,0 +1,11 @@
+Following are the pins I used on ESP32:
+
+Servo: Pin 13
+
+Relay: Pin 14
+
+Buzzer: Pin 27
+
+LED: 33
+
+Power: 5V/GND
