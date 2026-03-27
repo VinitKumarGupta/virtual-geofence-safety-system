@@ -1,4 +1,4 @@
-# VisionGuard: Distributed Edge-IoT Industrial Safety System
+# Virtual Geofence: Distributed Edge-IoT Industrial Safety System
 
 ![Project Status](https://img.shields.io/badge/Status-Prototype%20Complete-success)
 ![Tech Stack](https://img.shields.io/badge/Stack-Python%20|%20C++%20|%20ESP32-blue)
@@ -10,7 +10,7 @@
 
 ## 📖 Overview
 
-**VisionGuard** is a distributed IoT safety system designed to prevent industrial accidents by autonomously halting hazardous machinery when unauthorized human presence is detected. 
+**Virtual Geofence** is a distributed IoT safety system designed to prevent industrial accidents by autonomously halting hazardous machinery when unauthorized human presence is detected. 
 
 Unlike traditional physical cages or light curtains, this system uses **Computer Vision** and **Edge Computing** to create a dynamic "Virtual Geofence" around dangerous equipment. It achieves **sub-200ms latency** by leveraging a custom UDP streaming protocol and lightweight motion detection algorithms, ensuring immediate actuation before an operator can come into contact with the hazard.
 
@@ -66,8 +66,6 @@ graph TD
 * **Servo:** Physically engages the Mechanical Emergency Stop button.
 * **Alarm:** Triggers a high-decibel buzzer and LED.
 
-
-
 ---
 
 ## 🛠️ Tech Stack & Hardware
@@ -97,7 +95,7 @@ graph TD
 
 1. **Clone the Repo:**
 ```bash
-git clone [https://github.com/yourusername/VisionGuard.git](https://github.com/yourusername/VisionGuard.git)
+git clone [https://github.com/yourusername/Virtual Geofence.git](https://github.com/yourusername/Virtual Geofence.git)
 
 ```
 
@@ -124,14 +122,12 @@ python brain.py
 ```
 
 
-
-
-
 ---
 
-## 🔬 Challenges & Solutions
+## Challenges & Solutions
 
-* **Latency vs. Reliability:** * *Challenge:* TCP streams introduced 2-3 seconds of lag due to buffering and retransmission.
+* **Latency vs. Reliability:**
+* *Challenge:* TCP streams introduced 2-3 seconds of lag due to buffering and retransmission.
 * *Solution:* Switched to **UDP**. Implemented a "fire-and-forget" protocol where dropped frames are ignored to maintain real-time synchronization (<200ms).
 
 
@@ -145,10 +141,9 @@ python brain.py
 * *Solution:* Used separate power source and a relay module.
 
 
-
 ---
 
-## 🔮 Future Improvements
+## Future Improvements
 
 * **Migration to C++:** Porting the Python backend to C++ to utilize the Global Interpreter Lock (GIL)-free performance for higher frame rates.
 * **Mesh Networking:** Implementing **ESP-MESH** to allow multiple sensor nodes to communicate without a central router.
