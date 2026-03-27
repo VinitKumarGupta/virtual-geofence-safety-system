@@ -8,13 +8,13 @@
 
 ---
 
-## 📖 Overview
+## Overview
 
 **Virtual Geofence** is a distributed IoT safety system designed to prevent industrial accidents by autonomously halting hazardous machinery when unauthorized human presence is detected. 
 
 Unlike traditional physical cages or light curtains, this system uses **Computer Vision** and **Edge Computing** to create a dynamic "Virtual Geofence" around dangerous equipment. It achieves **sub-200ms latency** by leveraging a custom UDP streaming protocol and lightweight motion detection algorithms, ensuring immediate actuation before an operator can come into contact with the hazard.
 
-### 🎯 Key Features
+### Key Features
 * **Latency-Optimized Networking:** Uses **UDP** over TCP to eliminate handshake overhead, ensuring real-time "freshness" of video data.
 * **Distributed Architecture:** Decouples vision processing (Edge Node) from actuation (Microcontroller) for scalability.
 * **Fail-Safe Design:** Implements **Active-Low** logic and **Normally Closed (NC)** relays; the machine defaults to "OFF" if power or signal is lost.
@@ -22,7 +22,7 @@ Unlike traditional physical cages or light curtains, this system uses **Computer
 
 ---
 
-## ⚙️ System Architecture
+## System Architecture
 
 The system follows a **Master-Slave Edge Computing** model:
 
@@ -81,7 +81,7 @@ graph TD
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
