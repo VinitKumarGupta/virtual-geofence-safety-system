@@ -12,6 +12,8 @@
 
 **Virtual Geofence** is a distributed IoT safety system designed to prevent industrial accidents by autonomously halting hazardous machinery when unauthorized human presence is detected. 
 
+[![Watch Demo Video](https://img.shields.io/badge/Demo-Watch%20Video-red?style=for-the-badge&logo=google-drive)](https://drive.google.com/file/d/1HW1c9g_QqOU_CCa1WTZ2KBgWILmWI6fF/view)
+
 Unlike traditional physical cages or light curtains, this system uses **Computer Vision** and **Edge Computing** to create a dynamic "Virtual Geofence" around dangerous equipment. It achieves **sub-200ms latency** by leveraging a custom UDP streaming protocol and lightweight motion detection algorithms, ensuring immediate actuation before an operator can come into contact with the hazard.
 
 ### Key Features
