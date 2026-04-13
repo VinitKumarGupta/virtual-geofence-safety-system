@@ -30,7 +30,8 @@ WiFiUDP udp;
 
 void setup() {
   Serial.begin(115200);
-  
+
+  // Mapping camera data pins to ESP32 pins
   camera_config_t config;
   config.ledc_channel = LEDC_CHANNEL_0;
   config.ledc_timer = LEDC_TIMER_0;
@@ -50,14 +51,27 @@ void setup() {
   config.pin_sscb_scl = SIOC_GPIO_NUM;
   config.pin_pwdn = PWDN_GPIO_NUM;
   config.pin_reset = RESET_GPIO_NUM;
-  config.xclk_freq_hz = 20000000;
-  config.pixel_format = PIXFORMAT_JPEG; 
+  config.xclk_freq_hz = 20000000;        // Camera Clock Speed. Controls capture speed (Higher clock => faster capture)
+  config.pixel_format = PIXFORMAT_JPEG;  // Image is compressed directly as JPEG.
+
+  /*
+  Without compression:
+  320x240 raw image ≈ 76 KB
+  JPEG compressed ≈ 5-15 KB
+  
+  Huge speed improvement.
+  */
   
   // LOWER RES FOR SPEED (UDP packet size limit is ~1400 bytes usually)
-  // We use chunks, but smaller frames = faster transmission
-  config.frame_size = FRAMESIZE_QVGA; // 320x240
-  config.jpeg_quality = 12; 
-  config.fb_count = 2;
+  config.frame_size = FRAMESIZE_QVGA; // 320x240 (Small image = fast transmission)
+  config.jpeg_quality = 12; // JPEG compression quality (Lower number = Higher quality)
+  config.fb_count = 2;  // Number of image buffers stored in memory
+
+  /*
+  2 buffers allow:
+  capture next frame while previous is being processed.
+  Improves FPS.
+  */
 
   if (esp_camera_init(&config) != ESP_OK) {
     Serial.println("Camera Init Failed");
@@ -73,7 +87,15 @@ void setup() {
 }
 
 void loop() {
-  camera_fb_t * fb = esp_camera_fb_get();
+  // A frame buffer is simply a block of memory that stores the captured image.
+  camera_fb_t * fb = esp_camera_fb_get(); // capture one image from the camera
+
+  /*
+  - fb stores the address of image data in memory
+  - Microcontrollers avoid copying big arrays because memory is limited.
+  */
+
+  // If capture fails, we skip this loop iteration
   if (!fb) return;
 
   // PROTOCOL: [Frame ID (1 byte)] [Chunk Index (1 byte)] [Total Chunks (1 byte)] [Data...]
@@ -81,16 +103,16 @@ void loop() {
   static uint8_t frameId = 0; 
   frameId++; 
 
-  const int max_payload = 1400; 
-  int total_len = fb->len;
-  int num_chunks = (total_len + max_payload - 1) / max_payload;
+  const int max_payload = 1400;   // Since UDP safe packets size is nearly 1400 bytes, larger packets may get dropped
+  int total_len = fb->len;  // tells how big the JPEG image is
+  int num_chunks = (total_len + max_payload - 1) / max_payload;  // Formula for splitting data
   
   // 3 bytes Header
   uint8_t header[3]; 
   
   for (int i = 0; i < num_chunks; i++) {
     int start = i * max_payload;
-    int len = (start + max_payload > total_len) ? (total_len - start) : max_payload;
+    int len = (start + max_payload > total_len) ? (total_len - start) : max_payload;  // ensures last chunk doesnt exceed image size
     
     header[0] = frameId;        // Identifies which frame this chunk belongs to
     header[1] = i;              // Chunk Index
@@ -102,11 +124,10 @@ void loop() {
     udp.endPacket();
     
     // Tiny delay to breathe
-    delayMicroseconds(3000); 
+    delayMicroseconds(3000);   // Prevents network overload
   }
 
-  esp_camera_fb_return(fb);
+  esp_camera_fb_return(fb);    // Prevents memory leak by returning memory back to the system
   
-  // Important: If video is still blocky, UNCOMMENT the delay below to slow down FPS
-  delay(100); 
+  delay(100); // controls frame rate
 }
