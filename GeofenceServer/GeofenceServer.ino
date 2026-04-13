@@ -3,9 +3,9 @@
 #include <ESP32Servo.h>
 
 // ================= CONFIGURATION =================
-const char* ssid = "Vivo Y73";
-const char* password = "Vinit#1234";
-const int localPort = 3333;
+const char* ssid = "YOUR_WIFI_NAME";
+const char* password = "YOUR_WIFI_PASSWORD";
+const int localPort = 3333;  // runs on port 3333
 
 // ================= PIN DEFINITIONS =================
 #define RELAY_PIN   14
@@ -42,7 +42,9 @@ void setup() {
   WiFi.begin(ssid, password);
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
+    Serial.print(".");
   }
+  Serial.println("\nWiFi Connected");
   udp.begin(localPort);
 }
 
