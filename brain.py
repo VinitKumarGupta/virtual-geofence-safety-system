@@ -69,7 +69,7 @@ while True:
                 # --- Calibrates the first 30 frames ---
                 if frame_count < 30:
                     if background_model is None:
-                        # Convertig to FLOAT for accumulateWeighted
+                        # Converting to FLOAT for accumulateWeighted
                         background_model = gray.copy().astype("float")
                     
                     # Accumulate background
