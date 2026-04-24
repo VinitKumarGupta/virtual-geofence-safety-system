@@ -6,7 +6,7 @@ import time
 # ================= CONFIGURATION =================
 UDP_IP = "0.0.0.0"
 UDP_PORT = 1234
-MUSCLE_IP = "10.114.170.XYZ"  # <--- ESP32 (Muscle) IP
+MUSCLE_IP = "10.114.170.XYZ"  # <--- ESP32 (Server) IP
 MUSCLE_PORT = 3333
 
 SCALE_FACTOR = 2.0  
