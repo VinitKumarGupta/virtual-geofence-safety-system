@@ -61,8 +61,6 @@ graph TD
 2.  **Preprocessing:** Applies Gaussian Blur to reduce sensor noise.
 3.  **Background Subtraction:** Calculates pixel-wise difference (`cv2.absdiff`).
 
-#### Background Subtraction Visualization
-
 This illustrates how the system isolates moving objects from a static background before contour detection:
 
 <p align="center">
@@ -73,7 +71,7 @@ This illustrates how the system isolates moving objects from a static background
 
 <p align="center">
   <sub>
-    Reference: Analytics Vidhya
+    Reference: Analytics Vidhya - Background Subtraction in Computer Vision
   </sub>
 </p>
 
