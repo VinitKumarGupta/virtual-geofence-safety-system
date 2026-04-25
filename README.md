@@ -56,9 +56,27 @@ graph TD
 ### 2. The Brain (Edge Processing)
 
 * **Software:** Python, OpenCV, NumPy.
-* **Algorithm:** 1.  **Calibration:** Captures a static "safe" background upon startup.
+* **Algorithm:**
+1.  **Calibration:** Captures a static "safe" background upon startup.
 2.  **Preprocessing:** Applies Gaussian Blur to reduce sensor noise.
 3.  **Background Subtraction:** Calculates pixel-wise difference (`cv2.absdiff`).
+
+#### Background Subtraction Visualization
+
+This illustrates how the system isolates moving objects from a static background before contour detection:
+
+<p align="center">
+  <img src="https://editor.analyticsvidhya.com/uploads/26964321700_1_En_3_Fig1_HTML.gif" 
+       alt="Background Subtraction Process"
+       width="600"/>
+</p>
+
+<p align="center">
+  <sub>
+    Reference: Analytics Vidhya
+  </sub>
+</p>
+
 4.  **Thresholding:** Ignores minor lighting changes; triggers only on significant structural changes (motion).
 5.  **Decision:** If contour area > threshold, a `STOP` packet is broadcast to the Actuation Node.
 
