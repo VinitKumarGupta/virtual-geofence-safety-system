@@ -24,6 +24,8 @@ Unlike traditional physical cages or light curtains, this system uses **Computer
 
 ---
 
+
+
 ## System Architecture
 
 The system follows a **Master-Slave Edge Computing** model:
@@ -128,17 +130,17 @@ python brain.py
 
 ## Challenges & Solutions
 
-* **Latency vs. Reliability:**
+#### **Latency vs. Reliability:**
 * *Challenge:* TCP streams introduced 2-3 seconds of lag due to buffering and retransmission.
 * *Solution:* Switched to **UDP**. Implemented a "fire-and-forget" protocol where dropped frames are ignored to maintain real-time synchronization (<200ms).
 
 
-* **False Positives:**
+#### **False Positives:**
 * *Challenge:* Lighting changes triggered the alarm.
 * *Solution:* Implemented **Adaptive Background Learning** (`cv2.accumulateWeighted`) to slowly adjust to ambient light changes without triggering the motion alarm.
 
 
-* **Power Management:**
+#### **Power Management:**
 * *Challenge:* Brownouts when the Servo and Motor triggered simultaneously.
 * *Solution:* Used separate power source and a relay module.
 
@@ -150,5 +152,3 @@ python brain.py
 * **Migration to C++:** Porting the Python backend to C++ to utilize the Global Interpreter Lock (GIL)-free performance for higher frame rates.
 * **Mesh Networking:** Implementing **ESP-MESH** to allow multiple sensor nodes to communicate without a central router.
 * **Protocol Upgrade:** Exploring **MQTT** or **DDS** for more robust control signaling in high-noise industrial environments.
-
----
